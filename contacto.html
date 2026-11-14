@@ -1,0 +1,834 @@
+<!doctype html>
+<!-- ===== PÁGINA: CONTACTO (contacto.html) =====
+     Canales de contacto, formulario que arma un mensaje de WhatsApp y preguntas frecuentes.
+     Acá no hay lógica: es HTML puro. Estilos en styles.css, interacciones en script.js.
+     
+     CÓMO LEER LAS CLASES (el sitio usa Tailwind, las clases van en class="..."):
+     bg-ink / bg-paper / bg-sand ... color de fondo (negro cálido / blanco cálido / arena)
+     text-gold / text-paper / text-ink / text-stone ... color del texto
+     py-24 lg:py-36 ... espacio arriba y abajo (celular / pantallas grandes)
+     px-6 lg:px-10 ... espacio a los costados
+     mx-auto max-w-7xl ... contenido centrado con ancho máximo
+     grid lg:grid-cols-[...] ... columnas (1 en celular, varias en pantalla grande)
+     hidden lg:flex ... oculto en celular, visible en escritorio
+     display-xl / display-lg / display-md ... tamaños de títulos grandes
+     eyebrow ... texto chico dorado en mayúsculas (arriba de los títulos)
+     reveal / animate-rise ... animación de aparición
+     Los colores y tamaños reales están definidos en styles.css
+-->
+<html lang="es">
+  <head>
+    <!-- ===== HEAD: datos de la página (no se ven en pantalla) =====
+         charset = acentos y ñ. viewport = que se vea bien en celular.
+    -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- ===== PRECARGA DE IMÁGENES =====
+         Hace que el logo y la foto principal carguen más rápido.
+    -->
+    <link rel="preload" as="image" href="assets/monograma-dorado.png" />
+    <link rel="preload" as="image" href="assets/hero-estudio.jpg" />
+    <!-- ===== ESTILOS =====
+         styles.css tiene TODOS los estilos (colores, tamaños, animaciones).
+    -->
+    <link rel="stylesheet" href="styles.css" />
+    <!-- ===== TIPOGRAFÍAS (Google Fonts) =====
+         Cormorant Garamond = títulos (serif). Manrope = textos (sans).
+         Si cambiás una fuente, también hay que cambiarla en styles.css (variables font-serif y font-sans).
+    -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap"
+      data-precedence="default"
+    />
+    <!-- ===== TÍTULO Y DESCRIPCIÓN PARA GOOGLE / REDES =====
+         title = texto de la pestaña y título en Google.
+         description = frase que aparece debajo en los resultados.
+         og:* y twitter:card = cómo se ve el link al compartirlo en WhatsApp o redes.
+         theme-color = color de la barra del navegador en celular.
+    -->
+    <title>Contacto | Solicitar una consulta con la Dra. Moran Arias</title>
+    <meta name="author" content="Dra. Moran Arias" />
+    <meta name="theme-color" content="#141210" />
+    <meta property="og:locale" content="es_AR" />
+    <meta
+      name="description"
+      content="Solicitá una consulta confidencial con la Dra. Moran Arias, abogada en Córdoba. Escribí por WhatsApp o completá el formulario. Atención con cita previa."
+    />
+    <meta property="og:title" content="Solicitar una consulta | Dra. Moran Arias" />
+    <meta
+      property="og:description"
+      content="Hablemos de tu situación. Consulta confidencial con cita previa en Córdoba."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <!-- ===== ÍCONO DE LA PESTAÑA (favicon) =====
+    -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+  </head>
+  <body>
+    <!-- ===== HEADER (menú superior fijo) =====
+         Es transparente arriba de todo y se vuelve oscuro al hacer scroll (lo maneja script.js).
+         Contiene: logo, menú de escritorio, botón de consulta y botón hamburguesa para celular.
+    -->
+    <header class="fixed inset-x-0 top-0 z-50 transition-all duration-500 border-b border-transparent bg-transparent">
+      <div class="mx-auto flex max-w-7xl items-center justify-between px-6 transition-all duration-500 lg:px-10 h-24">
+        <!-- ===== LOGO + NOMBRE (lleva al inicio) =====
+        -->
+        <a class="flex items-center gap-3" aria-label="Dra. Moran Arias, inicio" href="index.html"
+          ><img src="assets/monograma-dorado.png" alt="" class="h-10 w-auto" width="445" height="402" /><span
+            class="flex flex-col leading-none"
+            ><span class="font-serif text-xl tracking-wide text-paper">Dra. Moran Arias</span
+            ><span class="mt-1 text-[0.6rem] uppercase tracking-[0.3em] text-stone-light">Abogada · Córdoba</span></span
+          ></a
+        >
+        <!-- ===== MENÚ DE ESCRITORIO =====
+             Links a las 5 páginas. El de la página actual lleva data-status="active" (se pinta dorado).
+             Si agregás una página nueva, sumá su link acá, en el pie de página (Navegación) y mové el 'active'.
+             En celular este menú se oculta y script.js arma uno nuevo a partir de estos links.
+        -->
+        <nav class="hidden items-center gap-9 lg:flex" aria-label="Navegación principal">
+          <a
+            class="relative text-[0.72rem] uppercase tracking-[0.2em] text-stone-light transition-colors hover:text-gold data-[status=active]:text-gold"
+            href="index.html"
+            >Inicio</a
+          ><a
+            class="relative text-[0.72rem] uppercase tracking-[0.2em] text-stone-light transition-colors hover:text-gold data-[status=active]:text-gold"
+            href="sobre-mi.html"
+            >Sobre mí</a
+          ><a
+            class="relative text-[0.72rem] uppercase tracking-[0.2em] text-stone-light transition-colors hover:text-gold data-[status=active]:text-gold"
+            href="servicios.html"
+            >Servicios</a
+          ><a
+            class="relative text-[0.72rem] uppercase tracking-[0.2em] text-stone-light transition-colors hover:text-gold data-[status=active]:text-gold"
+            href="contenidos.html"
+            >Contenidos</a
+          ><a
+            class="relative text-[0.72rem] uppercase tracking-[0.2em] text-stone-light transition-colors hover:text-gold data-[status=active]:text-gold active"
+            href="contacto.html"
+            data-status="active"
+            aria-current="page"
+            >Contacto</a
+          >
+        </nav>
+        <div class="hidden lg:block">
+          <a
+            class="inline-flex items-center justify-center gap-2 whitespace-nowrap cursor-pointer transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 bg-gold text-ink uppercase tracking-[0.16em] text-[0.72rem] font-semibold hover:bg-gold-soft hover:-translate-y-0.5 hover:shadow-gold rounded-md px-8 h-11 active"
+            href="contacto.html"
+            data-status="active"
+            aria-current="page"
+            >Solicitar una consulta
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-arrow-up-right"
+              aria-hidden="true"
+            >
+              <path d="M7 7h10v10"></path>
+              <path d="M7 17 17 7"></path></svg
+          ></a>
+        </div>
+        <!-- ===== BOTÓN HAMBURGUESA (solo celular) =====
+             Al tocarlo, script.js despliega el menú móvil.
+        -->
+        <button type="button" class="p-2 text-paper lg:hidden" aria-label="Abrir menú" aria-expanded="false">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-menu size-6"
+            aria-hidden="true"
+          >
+            <path d="M4 5h16"></path>
+            <path d="M4 12h16"></path>
+            <path d="M4 19h16"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+    <!-- ===== CONTENIDO PRINCIPAL =====
+         Cada <section> es un bloque horizontal de la página.
+    -->
+    <main>
+      
+      <!-- ===== SECCIÓN 1) ENCABEZADO DE PÁGINA =====
+           Título 'Hablemos de tu situación' y bajada.
+      -->
+      <section class="grain relative overflow-hidden bg-ink pb-20 pt-44 text-paper lg:pb-28 lg:pt-52">
+        <!-- ===== IMAGEN: hero-estudio.jpg =====
+             FOTO DE FONDO del encabezado. Para cambiarla: reemplazar el archivo en assets/ (mismo nombre) o cambiar el src.
+        -->
+        <img
+          src="assets/hero-estudio.jpg"
+          alt=""
+          width="1920"
+          height="1152"
+          class="animate-slow-zoom absolute inset-0 h-full w-full object-cover opacity-30"
+        />
+        <!-- ===== Capa oscura degradada sobre la foto (para que se lea el texto) =====
+             Se edita en styles.css: variable gradient-hero.
+        -->
+        <div class="bg-hero-overlay absolute inset-0"></div>
+        <div class="relative mx-auto max-w-7xl px-6 lg:px-10">
+          <div class="animate-rise flex items-center gap-4">
+            <span class="gold-rule"></span>
+            <p class="eyebrow-light">Contacto confidencial</p>
+          </div>
+          <h1 class="animate-rise anim-delay-1 display-xl mt-8 max-w-4xl">
+            Hablemos de<br /><em class="font-normal text-gold">tu situación.</em>
+          </h1>
+          <p class="animate-rise anim-delay-2 mt-8 max-w-xl text-base leading-relaxed text-stone-light">
+            Contame brevemente qué necesitás y coordinamos un primer espacio de orientación.
+          </p>
+        </div>
+      </section>
+      <!-- ===== SECCIÓN 2) CANALES + FORMULARIO =====
+           Columna izquierda: links de contacto (WhatsApp, Instagram, ubicación, horario).
+           Columna derecha: formulario. No guarda datos: script.js arma el mensaje y abre WhatsApp.
+      -->
+      <section class="bg-background py-24 lg:py-32">
+        <div class="mx-auto grid max-w-7xl gap-16 px-6 lg:grid-cols-[1fr_1.2fr] lg:px-10">
+          <div class="reveal">
+            <p class="eyebrow">Canales de contacto</p>
+            <h2 class="display-md mt-5 text-ink">
+              Elegí la forma que te <em class="text-gold-deep">quede más cómoda.</em>
+            </h2>
+            <div class="mt-10 divide-y divide-border border-y border-border">
+              <!-- ===== LINK A WHATSAPP =====
+                   El número va sin + ni espacios (54 9 351 237-2338 = 5493512372338).
+                   El texto después de ?text= es el mensaje prellenado (está codificado, %20 = espacio).
+              -->
+              <a
+                href="https://wa.me/5493512372338?text=Hola%20Dra.%20Moran%20Arias%2C%20quisiera%20solicitar%20una%20consulta."
+                target="_blank"
+                rel="noreferrer"
+                class="group flex items-center gap-5 py-6"
+                ><span class="flex size-12 items-center justify-center rounded-full bg-ink text-gold"
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-message-circle size-5"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"
+                    ></path></svg></span
+                ><span class="flex-1"
+                  ><span class="block text-[0.65rem] uppercase tracking-[0.22em] text-muted-foreground">WhatsApp</span
+                  ><span class="block font-serif text-2xl text-ink">+54 9 351 237-2338</span></span
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-arrow-up-right size-5 text-stone transition-all group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-gold-deep"
+                  aria-hidden="true"
+                >
+                  <path d="M7 7h10v10"></path>
+                  <path d="M7 17 17 7"></path></svg></a
+              ><a
+                href="https://www.instagram.com/abogada.moranarias/"
+                target="_blank"
+                rel="noreferrer"
+                class="group flex items-center gap-5 py-6"
+                ><span class="flex size-12 items-center justify-center rounded-full bg-ink text-gold"
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-instagram size-5"
+                    aria-hidden="true"
+                  >
+                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg></span
+                ><span class="flex-1"
+                  ><span class="block text-[0.65rem] uppercase tracking-[0.22em] text-muted-foreground">Instagram</span
+                  ><span class="block font-serif text-2xl text-ink">@abogada.moranarias</span></span
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-arrow-up-right size-5 text-stone transition-all group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-gold-deep"
+                  aria-hidden="true"
+                >
+                  <path d="M7 7h10v10"></path>
+                  <path d="M7 17 17 7"></path></svg
+              ></a>
+              <div class="flex items-center gap-5 py-6">
+                <span class="flex size-12 items-center justify-center rounded-full bg-sand text-gold-deep"
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-clock size-5"
+                    aria-hidden="true"
+                  >
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M12 6v6l4 2"></path></svg></span
+                ><span
+                  ><span class="block text-[0.65rem] uppercase tracking-[0.22em] text-muted-foreground">Atención</span
+                  ><span class="block font-serif text-2xl text-ink">Con cita previa</span></span
+                >
+              </div>
+              <div class="flex items-center gap-5 py-6">
+                <span class="flex size-12 items-center justify-center rounded-full bg-sand text-gold-deep"
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-map-pin size-5"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"
+                    ></path>
+                    <circle cx="12" cy="10" r="3"></circle></svg></span
+                ><span
+                  ><span class="block text-[0.65rem] uppercase tracking-[0.22em] text-muted-foreground">Ubicación</span
+                  ><span class="block font-serif text-2xl text-ink">Córdoba, Argentina</span></span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="reveal bg-sand p-8 shadow-elegant sm:p-12">
+            <!-- ===== FORMULARIO DE CONSULTA =====
+                 Campos: name (nombre), topic (motivo, select) y message (mensaje).
+                 script.js lee esos 3 campos por su atributo name. Si les cambiás el name, hay que cambiarlo también en script.js.
+                 No envía datos a ningún servidor: arma el texto y abre WhatsApp.
+            -->
+            <form class="space-y-8">
+              <div>
+                <p class="eyebrow">Formulario de consulta</p>
+                <h3 class="mt-4 font-serif text-3xl text-ink">Solicitar una consulta</h3>
+              </div>
+              <label class="block text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-ink"
+                >Tu nombre<input
+                  required=""
+                  autocomplete="name"
+                  placeholder="¿Cómo te llamás?"
+                  class="mt-3 w-full border-0 border-b border-ink/20 bg-transparent px-0 py-3 text-base text-ink placeholder:text-stone/70 focus:border-gold-deep focus:outline-none focus:ring-0 transition-colors"
+                  name="name" /></label
+              ><label class="block text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-ink"
+                >¿En qué puedo ayudarte?<select
+                  name="topic"
+                  class="mt-3 w-full border-0 border-b border-ink/20 bg-transparent px-0 py-3 text-base text-ink placeholder:text-stone/70 focus:border-gold-deep focus:outline-none focus:ring-0 transition-colors cursor-pointer"
+                >
+                  <option selected="">Quiero hacer una consulta</option>
+                  <option>Necesito defensa penal</option>
+                  <option>Consulta sobre una audiencia</option>
+                  <option>Quiero asesoramiento preventivo</option>
+                </select></label
+              ><label class="block text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-ink"
+                >Mensaje<textarea
+                  name="message"
+                  rows="4"
+                  placeholder="Escribí unas líneas sobre tu situación..."
+                  class="mt-3 w-full border-0 border-b border-ink/20 bg-transparent px-0 py-3 text-base text-ink placeholder:text-stone/70 focus:border-gold-deep focus:outline-none focus:ring-0 transition-colors resize-none"
+                ></textarea></label
+              ><button
+                class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md cursor-pointer transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 bg-ink text-paper uppercase tracking-[0.16em] text-[0.72rem] font-semibold hover:bg-ink-soft hover:-translate-y-0.5 hover:shadow-elegant h-14 px-8 w-full"
+                type="submit"
+              >
+                Enviar consulta por WhatsApp
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-arrow-up-right"
+                  aria-hidden="true"
+                >
+                  <path d="M7 7h10v10"></path>
+                  <path d="M7 17 17 7"></path>
+                </svg>
+              </button>
+              <p class="text-xs leading-relaxed text-muted-foreground">
+                Al enviar se abre WhatsApp con tu mensaje listo. Tu consulta es confidencial.
+              </p>
+            </form>
+          </div>
+        </div>
+      </section>
+      <!-- ===== SECCIÓN 3) PREGUNTAS FRECUENTES (acordeón) =====
+           Cada pregunta es un bloque: el botón es la pregunta y el div de abajo (role=region) es la respuesta.
+           Para agregar una: copiar un bloque completo y cambiar el id del botón y el aria-labelledby
+           de la respuesta para que sean únicos y coincidan entre sí. script.js se encarga de abrir y cerrar.
+      -->
+      <section class="border-t border-border bg-background pb-28">
+        <div class="mx-auto max-w-3xl px-6 pt-24">
+          <p class="eyebrow text-center">Preguntas frecuentes</p>
+          <h2 class="display-md mt-5 text-center text-ink">Antes de consultar</h2>
+          <div class="mt-12" data-orientation="vertical">
+            <!-- ===== PREGUNTA FRECUENTE N° 1 =====
+                 El botón es la pregunta; el div con role=region es la respuesta (empieza oculto).
+            -->
+            <div data-state="closed" data-orientation="vertical" class="border-b border-border">
+              <h3 data-orientation="vertical" data-state="closed" class="flex">
+                <button
+                  type="button"
+                  aria-expanded="false"
+                  data-state="closed"
+                  data-orientation="vertical"
+                  id="radix-_R_bqiq_"
+                  class="flex flex-1 items-center justify-between cursor-pointer transition-all [&amp;[data-state=open]&gt;svg]:rotate-180 py-6 text-left font-serif text-2xl font-normal text-ink hover:no-underline"
+                  data-radix-collection-item=""
+                >
+                  ¿Cómo solicito una consulta?<svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-chevron-down h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200"
+                    aria-hidden="true"
+                  >
+                    <path d="m6 9 6 6 6-6"></path>
+                  </svg>
+                </button>
+              </h3>
+              <div
+                data-state="closed"
+                id="radix-_R_2bqiq_"
+                hidden=""
+                role="region"
+                aria-labelledby="radix-_R_bqiq_"
+                data-orientation="vertical"
+                class="overflow-hidden text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
+                style="
+                  --radix-accordion-content-height: var(--radix-collapsible-content-height);
+                  --radix-accordion-content-width: var(--radix-collapsible-content-width);
+                "
+              >
+                <div class="pb-6 text-base leading-relaxed text-muted-foreground">
+                  <p>
+                    Podés escribirme directamente por WhatsApp o completar el formulario de esta página. Con esos datos
+                    coordinamos día y horario para la consulta.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- ===== PREGUNTA FRECUENTE N° 2 =====
+                 El botón es la pregunta; el div con role=region es la respuesta (empieza oculto).
+            -->
+            <div data-state="closed" data-orientation="vertical" class="border-b border-border">
+              <h3 data-orientation="vertical" data-state="closed" class="flex">
+                <button
+                  type="button"
+                  aria-expanded="false"
+                  data-state="closed"
+                  data-orientation="vertical"
+                  id="radix-_R_jqiq_"
+                  class="flex flex-1 items-center justify-between cursor-pointer transition-all [&amp;[data-state=open]&gt;svg]:rotate-180 py-6 text-left font-serif text-2xl font-normal text-ink hover:no-underline"
+                  data-radix-collection-item=""
+                >
+                  ¿La consulta es confidencial?<svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-chevron-down h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200"
+                    aria-hidden="true"
+                  >
+                    <path d="m6 9 6 6 6-6"></path>
+                  </svg>
+                </button>
+              </h3>
+              <div
+                data-state="closed"
+                id="radix-_R_2jqiq_"
+                hidden=""
+                role="region"
+                aria-labelledby="radix-_R_jqiq_"
+                data-orientation="vertical"
+                class="overflow-hidden text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
+                style="
+                  --radix-accordion-content-height: var(--radix-collapsible-content-height);
+                  --radix-accordion-content-width: var(--radix-collapsible-content-width);
+                "
+              >
+                <div class="pb-6 text-base leading-relaxed text-muted-foreground">
+                  <p>Sí. Todo lo que me cuentes, desde el primer mensaje, se trata con absoluta reserva.</p>
+                </div>
+              </div>
+            </div>
+            <!-- ===== PREGUNTA FRECUENTE N° 3 =====
+                 El botón es la pregunta; el div con role=region es la respuesta (empieza oculto).
+            -->
+            <div data-state="closed" data-orientation="vertical" class="border-b border-border">
+              <h3 data-orientation="vertical" data-state="closed" class="flex">
+                <button
+                  type="button"
+                  aria-expanded="false"
+                  data-state="closed"
+                  data-orientation="vertical"
+                  id="radix-_R_rqiq_"
+                  class="flex flex-1 items-center justify-between cursor-pointer transition-all [&amp;[data-state=open]&gt;svg]:rotate-180 py-6 text-left font-serif text-2xl font-normal text-ink hover:no-underline"
+                  data-radix-collection-item=""
+                >
+                  ¿Necesito turno?<svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-chevron-down h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200"
+                    aria-hidden="true"
+                  >
+                    <path d="m6 9 6 6 6-6"></path>
+                  </svg>
+                </button>
+              </h3>
+              <div
+                data-state="closed"
+                id="radix-_R_2rqiq_"
+                hidden=""
+                role="region"
+                aria-labelledby="radix-_R_rqiq_"
+                data-orientation="vertical"
+                class="overflow-hidden text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
+                style="
+                  --radix-accordion-content-height: var(--radix-collapsible-content-height);
+                  --radix-accordion-content-width: var(--radix-collapsible-content-width);
+                "
+              >
+                <div class="pb-6 text-base leading-relaxed text-muted-foreground">
+                  <p>
+                    Sí, la atención es con cita previa, para poder dedicarle a tu caso el tiempo y la atención que
+                    merece.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- ===== PREGUNTA FRECUENTE N° 4 =====
+                 El botón es la pregunta; el div con role=region es la respuesta (empieza oculto).
+            -->
+            <div data-state="closed" data-orientation="vertical" class="border-b border-border">
+              <h3 data-orientation="vertical" data-state="closed" class="flex">
+                <button
+                  type="button"
+                  aria-expanded="false"
+                  data-state="closed"
+                  data-orientation="vertical"
+                  id="radix-_R_13qiq_"
+                  class="flex flex-1 items-center justify-between cursor-pointer transition-all [&amp;[data-state=open]&gt;svg]:rotate-180 py-6 text-left font-serif text-2xl font-normal text-ink hover:no-underline"
+                  data-radix-collection-item=""
+                >
+                  ¿Qué tengo que contar en el primer mensaje?<svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-chevron-down h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200"
+                    aria-hidden="true"
+                  >
+                    <path d="m6 9 6 6 6-6"></path>
+                  </svg>
+                </button>
+              </h3>
+              <div
+                data-state="closed"
+                id="radix-_R_33qiq_"
+                hidden=""
+                role="region"
+                aria-labelledby="radix-_R_13qiq_"
+                data-orientation="vertical"
+                class="overflow-hidden text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
+                style="
+                  --radix-accordion-content-height: var(--radix-collapsible-content-height);
+                  --radix-accordion-content-width: var(--radix-collapsible-content-width);
+                "
+              >
+                <div class="pb-6 text-base leading-relaxed text-muted-foreground">
+                  <p>
+                    Alcanza con unas líneas sobre tu situación y si hay alguna fecha próxima, como una audiencia. Los
+                    detalles los vemos en la consulta.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="sr-only">
+            Servicios:
+            Consulta y orientación, Defensa penal, Audiencias y medidas, Asesoramiento preventivo
+          </p>
+        </div>
+      </section>
+      
+    </main>
+    <!-- ===== FOOTER (pie de página) =====
+         Tres columnas: logo + descripción, navegación y datos de contacto.
+         El año del copyright está escrito a mano en el texto (© 2026).
+    -->
+    <footer class="grain bg-ink text-paper">
+      <div class="mx-auto grid max-w-7xl gap-14 px-6 py-20 lg:grid-cols-[1.2fr_1fr_1fr] lg:px-10">
+        <div>
+          <!-- ===== IMAGEN: logo-dorado.png =====
+               LOGO dorado del pie de página.
+          -->
+          <img
+            src="assets/logo-dorado.png"
+            alt="Dra. Moran Arias"
+            class="h-28 w-auto"
+            width="464"
+            height="482"
+            loading="lazy"
+          />
+          <p class="mt-6 max-w-xs text-sm leading-relaxed text-stone-light">
+            Defensa y asesoramiento legal en Derecho Penal. Atención personalizada y confidencial en Córdoba, Argentina.
+          </p>
+        </div>
+        <div>
+          <p class="eyebrow-light">Navegación</p>
+          <ul class="mt-6 space-y-3">
+            <li><a class="text-sm text-stone-light transition-colors hover:text-gold" href="index.html">Inicio</a></li>
+            <li>
+              <a class="text-sm text-stone-light transition-colors hover:text-gold" href="sobre-mi.html">Sobre mí</a>
+            </li>
+            <li>
+              <a class="text-sm text-stone-light transition-colors hover:text-gold" href="servicios.html">Servicios</a>
+            </li>
+            <li>
+              <a class="text-sm text-stone-light transition-colors hover:text-gold" href="contenidos.html"
+                >Contenidos</a
+              >
+            </li>
+            <li>
+              <a
+                class="text-sm text-stone-light transition-colors hover:text-gold active"
+                href="contacto.html"
+                data-status="active"
+                aria-current="page"
+                >Contacto</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <p class="eyebrow-light">Contacto</p>
+          <ul class="mt-6 space-y-4 text-sm text-stone-light">
+            <li>
+              <!-- ===== LINK A WHATSAPP =====
+                   El número va sin + ni espacios (54 9 351 237-2338 = 5493512372338).
+                   El texto después de ?text= es el mensaje prellenado (está codificado, %20 = espacio).
+              -->
+              <a
+                href="https://wa.me/5493512372338?text=Hola%20Dra.%20Moran%20Arias%2C%20quisiera%20solicitar%20una%20consulta."
+                target="_blank"
+                rel="noreferrer"
+                class="flex items-center gap-3 transition-colors hover:text-gold"
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-message-circle size-4 text-gold"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"
+                  ></path>
+                </svg>
+                +54 9 351 237-2338</a
+              >
+            </li>
+            <li>
+              <!-- ===== LINK A INSTAGRAM =====
+                   Para llevar a una publicación puntual, reemplazar la URL por la del post.
+              -->
+              <a
+                href="https://www.instagram.com/abogada.moranarias/"
+                target="_blank"
+                rel="noreferrer"
+                class="flex items-center gap-3 transition-colors hover:text-gold"
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-instagram size-4 text-gold"
+                  aria-hidden="true"
+                >
+                  <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                  <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+                </svg>
+                @abogada.moranarias</a
+              >
+            </li>
+            <li class="flex items-center gap-3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-map-pin size-4 text-gold"
+                aria-hidden="true"
+              >
+                <path
+                  d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"
+                ></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              Córdoba, Argentina
+            </li>
+            <li class="flex items-center gap-3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-clock size-4 text-gold"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 6v6l4 2"></path>
+              </svg>
+              Atención
+              con cita previa
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-ink-line">
+        <div
+          class="mx-auto flex max-w-7xl flex-col gap-2 px-6 py-6 text-xs tracking-wide text-stone sm:flex-row sm:items-center sm:justify-between lg:px-10"
+        >
+          <span
+            >©
+            2026
+            Dra. Moran Arias · Abogada</span
+          ><span>La información de este sitio no reemplaza una consulta profesional.</span>
+        </div>
+      </div>
+    </footer>
+    <!-- ===== BOTÓN FLOTANTE DE WHATSAPP (siempre visible abajo a la derecha) =====
+         Mismo link que el resto: el número está en la URL wa.me/5493512372338.
+         Para cambiar el número, reemplazarlo en TODOS los archivos .html y en script.js (buscar y reemplazar).
+    -->
+    <a
+      href="https://wa.me/5493512372338?text=Hola%20Dra.%20Moran%20Arias%2C%20quisiera%20solicitar%20una%20consulta."
+      target="_blank"
+      rel="noreferrer"
+      aria-label="Escribir por WhatsApp"
+      class="group fixed bottom-6 right-6 z-40 flex items-center gap-3 rounded-full bg-gold py-3 pl-4 pr-4 text-ink shadow-gold transition-all duration-300 hover:-translate-y-1 hover:bg-gold-soft sm:pr-5"
+      ><svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="lucide lucide-message-circle size-5"
+        aria-hidden="true"
+      >
+        <path
+          d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"
+        ></path></svg
+      ><span class="hidden text-xs font-semibold uppercase tracking-[0.16em] sm:inline">Consultar</span></a
+    >
+    <!-- ===== JAVASCRIPT =====
+         Menú móvil, acordeón de preguntas y formulario → WhatsApp.
+         Va al final del body para que cargue después de todo el contenido.
+    -->
+    <script src="script.js"></script>
+  </body>
+</html>

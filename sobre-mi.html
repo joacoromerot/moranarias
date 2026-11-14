@@ -1,0 +1,765 @@
+<!doctype html>
+<!-- ===== PÁGINA: SOBRE MÍ (sobre-mi.html) =====
+     Presentación personal, filosofía de trabajo y compromiso.
+     Acá no hay lógica: es HTML puro. Estilos en styles.css, interacciones en script.js.
+     
+     CÓMO LEER LAS CLASES (el sitio usa Tailwind, las clases van en class="..."):
+     bg-ink / bg-paper / bg-sand ... color de fondo (negro cálido / blanco cálido / arena)
+     text-gold / text-paper / text-ink / text-stone ... color del texto
+     py-24 lg:py-36 ... espacio arriba y abajo (celular / pantallas grandes)
+     px-6 lg:px-10 ... espacio a los costados
+     mx-auto max-w-7xl ... contenido centrado con ancho máximo
+     grid lg:grid-cols-[...] ... columnas (1 en celular, varias en pantalla grande)
+     hidden lg:flex ... oculto en celular, visible en escritorio
+     display-xl / display-lg / display-md ... tamaños de títulos grandes
+     eyebrow ... texto chico dorado en mayúsculas (arriba de los títulos)
+     reveal / animate-rise ... animación de aparición
+     Los colores y tamaños reales están definidos en styles.css
+-->
+<html lang="es">
+  <head>
+    <!-- ===== HEAD: datos de la página (no se ven en pantalla) =====
+         charset = acentos y ñ. viewport = que se vea bien en celular.
+    -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- ===== PRECARGA DE IMÁGENES =====
+         Hace que el logo y la foto principal carguen más rápido.
+    -->
+    <link rel="preload" as="image" href="assets/monograma-dorado.png" />
+    <link rel="preload" as="image" href="assets/hero-estudio.jpg" />
+    <!-- ===== ESTILOS =====
+         styles.css tiene TODOS los estilos (colores, tamaños, animaciones).
+    -->
+    <link rel="stylesheet" href="styles.css" />
+    <!-- ===== TIPOGRAFÍAS (Google Fonts) =====
+         Cormorant Garamond = títulos (serif). Manrope = textos (sans).
+         Si cambiás una fuente, también hay que cambiarla en styles.css (variables font-serif y font-sans).
+    -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap"
+      data-precedence="default"
+    />
+    <!-- ===== TÍTULO Y DESCRIPCIÓN PARA GOOGLE / REDES =====
+         title = texto de la pestaña y título en Google.
+         description = frase que aparece debajo en los resultados.
+         og:* y twitter:card = cómo se ve el link al compartirlo en WhatsApp o redes.
+         theme-color = color de la barra del navegador en celular.
+    -->
+    <title>Sobre mí | Dra. Moran Arias, abogada en Córdoba</title>
+    <meta name="author" content="Dra. Moran Arias" />
+    <meta name="theme-color" content="#141210" />
+    <meta property="og:locale" content="es_AR" />
+    <meta
+      name="description"
+      content="Conocé a la Dra. Moran Arias: abogada en Córdoba dedicada al Derecho Penal, con una forma de trabajo basada en la escucha, la estrategia y la presencia."
+    />
+    <meta property="og:title" content="Sobre mí | Dra. Moran Arias" />
+    <meta
+      property="og:description"
+      content="Abogada en Córdoba. Escucha, estrategia y presencia en cada etapa del proceso."
+    />
+    <meta property="og:type" content="profile" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <!-- ===== ÍCONO DE LA PESTAÑA (favicon) =====
+    -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+  </head>
+  <body>
+    <!-- ===== HEADER (menú superior fijo) =====
+         Es transparente arriba de todo y se vuelve oscuro al hacer scroll (lo maneja script.js).
+         Contiene: logo, menú de escritorio, botón de consulta y botón hamburguesa para celular.
+    -->
+    <header class="fixed inset-x-0 top-0 z-50 transition-all duration-500 border-b border-transparent bg-transparent">
+      <div class="mx-auto flex max-w-7xl items-center justify-between px-6 transition-all duration-500 lg:px-10 h-24">
+        <!-- ===== LOGO + NOMBRE (lleva al inicio) =====
+        -->
+        <a class="flex items-center gap-3" aria-label="Dra. Moran Arias, inicio" href="index.html"
+          ><img src="assets/monograma-dorado.png" alt="" class="h-10 w-auto" width="445" height="402" /><span
+            class="flex flex-col leading-none"
+            ><span class="font-serif text-xl tracking-wide text-paper">Dra. Moran Arias</span
+            ><span class="mt-1 text-[0.6rem] uppercase tracking-[0.3em] text-stone-light">Abogada · Córdoba</span></span
+          ></a
+        >
+        <!-- ===== MENÚ DE ESCRITORIO =====
+             Links a las 5 páginas. El de la página actual lleva data-status="active" (se pinta dorado).
+             Si agregás una página nueva, sumá su link acá, en el pie de página (Navegación) y mové el 'active'.
+             En celular este menú se oculta y script.js arma uno nuevo a partir de estos links.
+        -->
+        <nav class="hidden items-center gap-9 lg:flex" aria-label="Navegación principal">
+          <a
+            class="relative text-[0.72rem] uppercase tracking-[0.2em] text-stone-light transition-colors hover:text-gold data-[status=active]:text-gold"
+            href="index.html"
+            >Inicio</a
+          ><a
+            class="relative text-[0.72rem] uppercase tracking-[0.2em] text-stone-light transition-colors hover:text-gold data-[status=active]:text-gold active"
+            href="sobre-mi.html"
+            data-status="active"
+            aria-current="page"
+            >Sobre mí</a
+          ><a
+            class="relative text-[0.72rem] uppercase tracking-[0.2em] text-stone-light transition-colors hover:text-gold data-[status=active]:text-gold"
+            href="servicios.html"
+            >Servicios</a
+          ><a
+            class="relative text-[0.72rem] uppercase tracking-[0.2em] text-stone-light transition-colors hover:text-gold data-[status=active]:text-gold"
+            href="contenidos.html"
+            >Contenidos</a
+          ><a
+            class="relative text-[0.72rem] uppercase tracking-[0.2em] text-stone-light transition-colors hover:text-gold data-[status=active]:text-gold"
+            href="contacto.html"
+            >Contacto</a
+          >
+        </nav>
+        <div class="hidden lg:block">
+          <a
+            class="inline-flex items-center justify-center gap-2 whitespace-nowrap cursor-pointer transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 bg-gold text-ink uppercase tracking-[0.16em] text-[0.72rem] font-semibold hover:bg-gold-soft hover:-translate-y-0.5 hover:shadow-gold rounded-md px-8 h-11"
+            href="contacto.html"
+            >Solicitar una consulta
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-arrow-up-right"
+              aria-hidden="true"
+            >
+              <path d="M7 7h10v10"></path>
+              <path d="M7 17 17 7"></path></svg
+          ></a>
+        </div>
+        <!-- ===== BOTÓN HAMBURGUESA (solo celular) =====
+             Al tocarlo, script.js despliega el menú móvil.
+        -->
+        <button type="button" class="p-2 text-paper lg:hidden" aria-label="Abrir menú" aria-expanded="false">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-menu size-6"
+            aria-hidden="true"
+          >
+            <path d="M4 5h16"></path>
+            <path d="M4 12h16"></path>
+            <path d="M4 19h16"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+    <!-- ===== CONTENIDO PRINCIPAL =====
+         Cada <section> es un bloque horizontal de la página.
+    -->
+    <main>
+      
+      <!-- ===== SECCIÓN 1) ENCABEZADO DE PÁGINA =====
+           Fondo oscuro con título grande 'Una defensa que te acompaña' y bajada.
+           Todas las páginas internas empiezan con un encabezado parecido.
+      -->
+      <section class="grain relative overflow-hidden bg-ink pb-20 pt-44 text-paper lg:pb-28 lg:pt-52">
+        <!-- ===== IMAGEN: hero-estudio.jpg =====
+             FOTO DE FONDO del encabezado. Para cambiarla: reemplazar el archivo en assets/ (mismo nombre) o cambiar el src.
+        -->
+        <img
+          src="assets/hero-estudio.jpg"
+          alt=""
+          width="1920"
+          height="1152"
+          class="animate-slow-zoom absolute inset-0 h-full w-full object-cover opacity-30"
+        />
+        <!-- ===== Capa oscura degradada sobre la foto (para que se lea el texto) =====
+             Se edita en styles.css: variable gradient-hero.
+        -->
+        <div class="bg-hero-overlay absolute inset-0"></div>
+        <div class="relative mx-auto max-w-7xl px-6 lg:px-10">
+          <div class="animate-rise flex items-center gap-4">
+            <span class="gold-rule"></span>
+            <p class="eyebrow-light">Sobre mí</p>
+          </div>
+          <h1 class="animate-rise anim-delay-1 display-xl mt-8 max-w-4xl">
+            Una defensa<br /><em class="font-normal text-gold">que te acompaña.</em>
+          </h1>
+          <p class="animate-rise anim-delay-2 mt-8 max-w-xl text-base leading-relaxed text-stone-light">
+            Detrás de cada caso hay una persona que necesita claridad. Mi trabajo es dársela, con rigor técnico y
+            cercanía.
+          </p>
+        </div>
+      </section>
+      <!-- ===== SECCIÓN 2) PRESENTACIÓN =====
+           Retrato (assets/moran-arias-retrato.png) y texto 'Hola, soy Moran Arias'.
+      -->
+      <section class="bg-background py-24 lg:py-36">
+        <div class="mx-auto grid max-w-7xl items-start gap-20 px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-10">
+          <div class="reveal lg:sticky lg:top-32">
+            <figure class="relative mx-auto w-full max-w-md">
+              <div class="arch bg-arch shadow-elegant relative aspect-[4/5] overflow-hidden border border-beige">
+                <!-- ===== IMAGEN: monograma-dorado.png =====
+                     MONOGRAMA dorado del logo del menú superior.
+                -->
+                <img
+                  src="assets/monograma-dorado.png"
+                  alt=""
+                  aria-hidden="true"
+                  class="absolute left-1/2 top-[10%] w-[78%] -translate-x-1/2 opacity-25"
+                  loading="lazy"
+                /><img
+                  src="assets/moranarias.png"
+                  alt="Dra. Moran Arias, abogada en Córdoba"
+                  width="291"
+                  height="664"
+                  loading="lazy"
+                  class="absolute bottom-0 left-1/2 h-[92%] w-auto -translate-x-1/2 object-contain"
+                />
+              </div>
+              <figcaption
+                class="absolute -bottom-6 -left-4 border border-gold/40 bg-ink px-6 py-4 text-paper shadow-elegant sm:-left-8"
+              >
+                <span class="block font-serif text-xl">Dra. Moran Arias</span
+                ><span class="mt-1 block text-[0.62rem] uppercase tracking-[0.28em] text-gold"
+                  >Abogada · Derecho Penal</span
+                >
+              </figcaption>
+            </figure>
+          </div>
+          <div>
+            <div class="reveal">
+              <div class="flex items-center gap-4">
+                <span class="gold-rule"></span>
+                <p class="eyebrow">Presentación</p>
+              </div>
+              <h2 class="display-lg mt-6 text-ink">
+                Hola, soy<br /><em class="font-normal text-gold-deep">Moran Arias.</em>
+              </h2>
+            </div>
+            <div class="reveal mt-8 space-y-5 text-lg leading-relaxed text-muted-foreground">
+              <p>
+                Soy abogada y ejerzo en Córdoba, Argentina, con dedicación al Derecho Penal. Sé que quien llega a una
+                consulta suele hacerlo en un momento difícil, con dudas y con urgencia.
+              </p>
+              <p>
+                El ejercicio del Derecho Penal requiere precisión técnica, escucha activa y una mirada estratégica sobre
+                cada etapa del proceso. Por eso trabajo de manera personalizada: cada caso es único y merece una defensa
+                pensada para él.
+              </p>
+            </div>
+            <div class="reveal mt-14">
+              <p class="eyebrow">Formación y trayectoria</p>
+              <dl class="mt-6 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2">
+                <div class="flex items-start gap-4 bg-card p-6">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-graduation-cap mt-0.5 size-5 shrink-0 text-gold-deep"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"
+                    ></path>
+                    <path d="M22 10v6"></path>
+                    <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path>
+                  </svg>
+                  <div>
+                    <dt class="text-[0.65rem] uppercase tracking-[0.22em] text-muted-foreground">Profesión</dt>
+                    <dd class="mt-1 font-serif text-xl text-ink">Abogada</dd>
+                  </div>
+                </div>
+                <div class="flex items-start gap-4 bg-card p-6">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-scale mt-0.5 size-5 shrink-0 text-gold-deep"
+                    aria-hidden="true"
+                  >
+                    <path d="M12 3v18"></path>
+                    <path d="m19 8 3 8a5 5 0 0 1-6 0zV7"></path>
+                    <path d="M3 7h1a17 17 0 0 0 8-2 17 17 0 0 0 8 2h1"></path>
+                    <path d="m5 8 3 8a5 5 0 0 1-6 0zV7"></path>
+                    <path d="M7 21h10"></path>
+                  </svg>
+                  <div>
+                    <dt class="text-[0.65rem] uppercase tracking-[0.22em] text-muted-foreground">Área de práctica</dt>
+                    <dd class="mt-1 font-serif text-xl text-ink">Derecho Penal</dd>
+                  </div>
+                </div>
+                <div class="flex items-start gap-4 bg-card p-6">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-map-pin mt-0.5 size-5 shrink-0 text-gold-deep"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"
+                    ></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                  </svg>
+                  <div>
+                    <dt class="text-[0.65rem] uppercase tracking-[0.22em] text-muted-foreground">Ubicación</dt>
+                    <dd class="mt-1 font-serif text-xl text-ink">Córdoba, Argentina</dd>
+                  </div>
+                </div>
+                <div class="flex items-start gap-4 bg-card p-6">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-instagram mt-0.5 size-5 shrink-0 text-gold-deep"
+                    aria-hidden="true"
+                  >
+                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+                  </svg>
+                  <div>
+                    <dt class="text-[0.65rem] uppercase tracking-[0.22em] text-muted-foreground">
+                      Divulgación jurídica
+                    </dt>
+                    <dd class="mt-1 font-serif text-xl text-ink">@abogada.moranarias</dd>
+                  </div>
+                </div>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ===== SECCIÓN 3) FILOSOFÍA DE TRABAJO =====
+           Tres ideas numeradas: Escucha, Estrategia, Presencia.
+           Cada una es un bloque con número, título y frase.
+      -->
+      <section class="grain bg-ink py-24 text-paper lg:py-36">
+        <div class="mx-auto max-w-7xl px-6 lg:px-10">
+          <div class="reveal">
+            <div class="flex items-center gap-4">
+              <span class="gold-rule"></span>
+              <p class="eyebrow-light">Filosofía de trabajo</p>
+            </div>
+            <h2 class="display-lg mt-6 text-paper">
+              Escucha, estrategia<br /><em class="font-normal text-gold">y presencia.</em>
+            </h2>
+          </div>
+          <div class="mt-16 grid gap-px overflow-hidden border border-ink-line bg-ink-line md:grid-cols-3">
+            <div class="reveal bg-ink p-10 lg:p-12">
+              <span class="font-serif text-5xl italic text-gold">01</span>
+              <h3 class="mt-8 font-serif text-3xl">Escucha</h3>
+              <p class="mt-3 leading-relaxed text-stone-light">Entender el contexto antes de actuar.</p>
+            </div>
+            <div class="reveal bg-ink p-10 lg:p-12">
+              <span class="font-serif text-5xl italic text-gold">02</span>
+              <h3 class="mt-8 font-serif text-3xl">Estrategia</h3>
+              <p class="mt-3 leading-relaxed text-stone-light">Construir una defensa con dirección.</p>
+            </div>
+            <div class="reveal bg-ink p-10 lg:p-12">
+              <span class="font-serif text-5xl italic text-gold">03</span>
+              <h3 class="mt-8 font-serif text-3xl">Presencia</h3>
+              <p class="mt-3 leading-relaxed text-stone-light">Acompañar cada instancia del proceso.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ===== SECCIÓN 4) MI COMPROMISO =====
+           Foto de documentos y lista de compromisos (Confidencialidad, etc.).
+      -->
+      <section class="bg-sand">
+        <div class="mx-auto grid max-w-7xl lg:grid-cols-2">
+          <div class="reveal px-6 py-24 lg:px-16 lg:py-32">
+            <div class="reveal">
+              <div class="flex items-center gap-4">
+                <span class="gold-rule"></span>
+                <p class="eyebrow">Mi compromiso</p>
+              </div>
+              <h2 class="display-lg mt-6 text-ink">
+                Con cada persona<br /><em class="font-normal text-gold-deep">que me consulta.</em>
+              </h2>
+            </div>
+            <ul class="mt-10 space-y-6">
+              <li class="flex gap-5 border-b border-ink/10 pb-6">
+                <span class="mt-3 h-px w-6 shrink-0 bg-gold-deep"></span>
+                <div>
+                  <p class="font-serif text-2xl text-ink">Confidencialidad</p>
+                  <p class="mt-1 text-muted-foreground">Todo lo que me cuentes queda entre nosotros.</p>
+                </div>
+              </li>
+              <li class="flex gap-5 border-b border-ink/10 pb-6">
+                <span class="mt-3 h-px w-6 shrink-0 bg-gold-deep"></span>
+                <div>
+                  <p class="font-serif text-2xl text-ink">Claridad</p>
+                  <p class="mt-1 text-muted-foreground">
+                    Te explico cada paso en palabras simples, sin tecnicismos innecesarios.
+                  </p>
+                </div>
+              </li>
+              <li class="flex gap-5 border-b border-ink/10 pb-6">
+                <span class="mt-3 h-px w-6 shrink-0 bg-gold-deep"></span>
+                <div>
+                  <p class="font-serif text-2xl text-ink">Compromiso</p>
+                  <p class="mt-1 text-muted-foreground">Estoy presente en cada instancia, no solo al principio.</p>
+                </div>
+              </li>
+              <li class="flex gap-5 border-b border-ink/10 pb-6">
+                <span class="mt-3 h-px w-6 shrink-0 bg-gold-deep"></span>
+                <div>
+                  <p class="font-serif text-2xl text-ink">Honestidad</p>
+                  <p class="mt-1 text-muted-foreground">Te digo con franqueza cuáles son tus opciones reales.</p>
+                </div>
+              </li>
+            </ul>
+            <a
+              class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md cursor-pointer transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 bg-ink text-paper uppercase tracking-[0.16em] text-[0.72rem] font-semibold hover:bg-ink-soft hover:-translate-y-0.5 hover:shadow-elegant h-14 px-8 mt-10"
+              href="contacto.html"
+              >Solicitar una consulta
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-arrow-up-right"
+                aria-hidden="true"
+              >
+                <path d="M7 7h10v10"></path>
+                <path d="M7 17 17 7"></path></svg
+            ></a>
+          </div>
+          <div class="relative min-h-[28rem]">
+            <!-- ===== IMAGEN: detalle-documentos.jpg =====
+                 FOTO DE DETALLE (documentos). Para cambiarla: reemplazar el archivo en assets/ o cambiar el src.
+            -->
+            <img
+              src="assets/detalle-documentos.jpg"
+              alt="Código legal y pluma dorada"
+              width="1280"
+              height="1600"
+              loading="lazy"
+              class="absolute inset-0 h-full w-full object-cover"
+            />
+            <div class="absolute inset-x-6 bottom-6 bg-ink/90 p-8 text-paper backdrop-blur lg:inset-x-12 lg:bottom-12">
+              <p class="font-serif text-2xl italic leading-snug">
+                “La defensa no es solo una respuesta. Es una forma de recuperar claridad cuando todo parece
+                incierto.”
+              </p>
+              <p class="mt-4 text-[0.65rem] uppercase tracking-[0.28em] text-gold">— Dra. Moran Arias</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ===== SECCIÓN 5) LLAMADO FINAL A LA ACCIÓN =====
+           Bloque 'Hablemos de tu situación' (igual en todas las páginas).
+      -->
+      <section class="grain relative overflow-hidden bg-ink-soft py-24 text-paper lg:py-32">
+        <!-- ===== IMAGEN: monograma-dorado.png =====
+             MONOGRAMA dorado del logo del menú superior.
+        -->
+        <img
+          src="assets/monograma-dorado.png"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          class="pointer-events-none absolute -right-20 top-1/2 w-[34rem] -translate-y-1/2 opacity-[0.06]"
+        />
+        <div class="relative mx-auto max-w-4xl px-6 text-center">
+          <div class="reveal">
+            <p class="eyebrow-light">Primer paso</p>
+            <h2 class="display-lg mt-6">Hablemos de <em class="font-normal text-gold">tu situación.</em></h2>
+            <p class="mx-auto mt-6 max-w-xl leading-relaxed text-stone-light">
+              Contame brevemente qué necesitás y coordinamos un primer espacio de orientación, confidencial y con cita
+              previa.
+            </p>
+            <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <a
+                class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md cursor-pointer transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 bg-gold text-ink uppercase tracking-[0.16em] text-[0.72rem] font-semibold hover:bg-gold-soft hover:-translate-y-0.5 hover:shadow-gold h-14 px-8"
+                href="contacto.html"
+                >Solicitar una consulta
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-arrow-up-right"
+                  aria-hidden="true"
+                >
+                  <path d="M7 7h10v10"></path>
+                  <path d="M7 17 17 7"></path></svg></a
+              ><a
+                href="https://wa.me/5493512372338?text=Hola%20Dra.%20Moran%20Arias%2C%20quisiera%20solicitar%20una%20consulta."
+                target="_blank"
+                rel="noreferrer"
+                class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md cursor-pointer transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 border border-paper/30 bg-transparent text-paper uppercase tracking-[0.16em] text-[0.72rem] font-semibold hover:border-gold hover:text-gold h-14 px-8"
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-message-circle"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"
+                  ></path>
+                </svg>
+                Escribir por WhatsApp</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+      
+    </main>
+    <!-- ===== FOOTER (pie de página) =====
+         Tres columnas: logo + descripción, navegación y datos de contacto.
+         El año del copyright está escrito a mano en el texto (© 2026).
+    -->
+    <footer class="grain bg-ink text-paper">
+      <div class="mx-auto grid max-w-7xl gap-14 px-6 py-20 lg:grid-cols-[1.2fr_1fr_1fr] lg:px-10">
+        <div>
+          <!-- ===== IMAGEN: logo-dorado.png =====
+               LOGO dorado del pie de página.
+          -->
+          <img
+            src="assets/logo-dorado.png"
+            alt="Dra. Moran Arias"
+            class="h-28 w-auto"
+            width="464"
+            height="482"
+            loading="lazy"
+          />
+          <p class="mt-6 max-w-xs text-sm leading-relaxed text-stone-light">
+            Defensa y asesoramiento legal en Derecho Penal. Atención personalizada y confidencial en Córdoba, Argentina.
+          </p>
+        </div>
+        <div>
+          <p class="eyebrow-light">Navegación</p>
+          <ul class="mt-6 space-y-3">
+            <li><a class="text-sm text-stone-light transition-colors hover:text-gold" href="index.html">Inicio</a></li>
+            <li>
+              <a
+                class="text-sm text-stone-light transition-colors hover:text-gold active"
+                href="sobre-mi.html"
+                data-status="active"
+                aria-current="page"
+                >Sobre mí</a
+              >
+            </li>
+            <li>
+              <a class="text-sm text-stone-light transition-colors hover:text-gold" href="servicios.html">Servicios</a>
+            </li>
+            <li>
+              <a class="text-sm text-stone-light transition-colors hover:text-gold" href="contenidos.html"
+                >Contenidos</a
+              >
+            </li>
+            <li>
+              <!-- ===== LINK A WHATSAPP =====
+                   El número va sin + ni espacios (54 9 351 237-2338 = 5493512372338).
+                   El texto después de ?text= es el mensaje prellenado (está codificado, %20 = espacio).
+              -->
+              <a class="text-sm text-stone-light transition-colors hover:text-gold" href="contacto.html">Contacto</a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <p class="eyebrow-light">Contacto</p>
+          <ul class="mt-6 space-y-4 text-sm text-stone-light">
+            <li>
+              <!-- ===== LINK A WHATSAPP =====
+                   El número va sin + ni espacios (54 9 351 237-2338 = 5493512372338).
+                   El texto después de ?text= es el mensaje prellenado (está codificado, %20 = espacio).
+              -->
+              <a
+                href="https://wa.me/5493512372338?text=Hola%20Dra.%20Moran%20Arias%2C%20quisiera%20solicitar%20una%20consulta."
+                target="_blank"
+                rel="noreferrer"
+                class="flex items-center gap-3 transition-colors hover:text-gold"
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-message-circle size-4 text-gold"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"
+                  ></path>
+                </svg>
+                +54 9 351 237-2338</a
+              >
+            </li>
+            <li>
+              <!-- ===== LINK A INSTAGRAM =====
+                   Para llevar a una publicación puntual, reemplazar la URL por la del post.
+              -->
+              <a
+                href="https://www.instagram.com/abogada.moranarias/"
+                target="_blank"
+                rel="noreferrer"
+                class="flex items-center gap-3 transition-colors hover:text-gold"
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-instagram size-4 text-gold"
+                  aria-hidden="true"
+                >
+                  <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                  <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+                </svg>
+                @abogada.moranarias</a
+              >
+            </li>
+            <li class="flex items-center gap-3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-map-pin size-4 text-gold"
+                aria-hidden="true"
+              >
+                <path
+                  d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"
+                ></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              Córdoba, Argentina
+            </li>
+            <li class="flex items-center gap-3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-clock size-4 text-gold"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 6v6l4 2"></path>
+              </svg>
+              Atención
+              con cita previa
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-ink-line">
+        <div
+          class="mx-auto flex max-w-7xl flex-col gap-2 px-6 py-6 text-xs tracking-wide text-stone sm:flex-row sm:items-center sm:justify-between lg:px-10"
+        >
+          <span
+            >©
+            2026
+            Dra. Moran Arias · Abogada</span
+          ><span>La información de este sitio no reemplaza una consulta profesional.</span>
+        </div>
+      </div>
+    </footer>
+    <!-- ===== BOTÓN FLOTANTE DE WHATSAPP (siempre visible abajo a la derecha) =====
+         Mismo link que el resto: el número está en la URL wa.me/5493512372338.
+         Para cambiar el número, reemplazarlo en TODOS los archivos .html y en script.js (buscar y reemplazar).
+    -->
+    <a
+      href="https://wa.me/5493512372338?text=Hola%20Dra.%20Moran%20Arias%2C%20quisiera%20solicitar%20una%20consulta."
+      target="_blank"
+      rel="noreferrer"
+      aria-label="Escribir por WhatsApp"
+      class="group fixed bottom-6 right-6 z-40 flex items-center gap-3 rounded-full bg-gold py-3 pl-4 pr-4 text-ink shadow-gold transition-all duration-300 hover:-translate-y-1 hover:bg-gold-soft sm:pr-5"
+      ><svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="lucide lucide-message-circle size-5"
+        aria-hidden="true"
+      >
+        <path
+          d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"
+        ></path></svg
+      ><span class="hidden text-xs font-semibold uppercase tracking-[0.16em] sm:inline">Consultar</span></a
+    >
+    <!-- ===== JAVASCRIPT =====
+         Menú móvil, acordeón de preguntas y formulario → WhatsApp.
+         Va al final del body para que cargue después de todo el contenido.
+    -->
+    <script src="script.js"></script>
+  </body>
+</html>

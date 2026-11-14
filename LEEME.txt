@@ -1,0 +1,76 @@
+Sitio web — Dra. Moran Arias (versión HTML + CSS + JS)
+======================================================
+
+ARCHIVOS
+- index.html       -> Inicio
+- sobre-mi.html    -> Sobre mí
+- servicios.html   -> Servicios
+- contenidos.html  -> Contenidos
+- contacto.html    -> Contacto (formulario -> WhatsApp + preguntas frecuentes)
+- styles.css       -> Todos los estilos (CSS compilado de Tailwind, comentado por secciones)
+- script.js        -> Menú móvil, header con scroll, preguntas frecuentes y formulario
+- assets/          -> Imágenes (logo, retrato, fotos)
+
+CÓMO USARLO
+1. Descomprimí la carpeta.
+2. Abrí index.html con doble clic, o subí TODA la carpeta a cualquier
+   hosting (Netlify, Vercel, Hostinger, etc.) tal como está.
+
+El formulario de contacto no guarda datos: arma el mensaje y abre
+WhatsApp al número +54 9 351 237-2338.
+
+------------------------------------------------------------------
+GUÍA RÁPIDA: ¿DÓNDE CAMBIO CADA COSA?
+------------------------------------------------------------------
+(Todos los HTML y los CSS/JS tienen comentarios que marcan cada parte.
+ Buscá con Ctrl+F el título de la sección.)
+
+TEXTOS
+  Abrí el .html de la página y buscá el texto. Cada sección empieza con un
+  comentario "SECCIÓN N) ..." que dice qué es.
+
+NÚMERO DE WHATSAPP
+  Está en 3 lugares: los links "wa.me/5493512372338" de TODOS los .html,
+  el texto visible "+54 9 351 237-2338" (footer y contacto) y WHATSAPP_NUMBER
+  en script.js. Usá buscar y reemplazar en toda la carpeta.
+
+INSTAGRAM
+  Buscá "instagram.com/abogada.moranarias" en los .html. En las tarjetas de
+  contenidos se puede poner el link de cada publicación.
+
+IMÁGENES
+  Reemplazá el archivo en assets/ conservando el mismo nombre, o cambiá el
+  src="assets/..." en el .html. Cada <img> tiene un comentario que explica cuál es.
+
+COLORES
+  styles.css -> buscá "6) :root". Ahí están ink (negro), paper (blanco),
+  sand (arena) y gold (dorado). Cambiando uno cambia en todo el sitio.
+
+TIPOGRAFÍAS
+  styles.css -> --font-serif (títulos) y --font-sans (textos), y el link de
+  Google Fonts en el <head> de cada .html.
+
+MENÚ
+  Los links están en el <header> (menú de escritorio) y en el <footer>
+  (columna Navegación). El menú de celular se arma solo en script.js
+  copiando el de escritorio.
+
+DATOS PARA GOOGLE Y REDES
+  En el <head> de cada .html: <title>, description y og:* (cómo se ve el link
+  al compartirlo).
+
+AGREGAR UNA PÁGINA NUEVA
+  1. Duplicá un .html y cambiá su contenido, título y description.
+  2. Sumá el link en el <header> y en el <footer> de TODAS las páginas.
+  3. Mové data-status="active" (y class="active") al link de la página actual.
+
+CÓMO LEER LAS CLASES (Tailwind)
+  bg-ink / bg-paper / bg-sand ... fondo        text-gold / text-ink ... color de texto
+  py-24 lg:py-36 ... espacio arriba/abajo (celular / pantalla grande)
+  px-6 lg:px-10  ... espacio a los costados    mx-auto max-w-7xl ... centrado con ancho máximo
+  hidden lg:flex ... oculto en celular, visible en escritorio
+  display-xl/lg/md ... títulos grandes         eyebrow ... texto chico dorado en mayúsculas
+
+NOTA
+  styles.css incluye reglas de una plantilla que estas páginas no usan
+  (menús desplegables, calendario, etc.). No molestan; se pueden ignorar.
